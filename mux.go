@@ -52,3 +52,15 @@ func (mux *NBMux) Search(path string, method string) (http.Handler, error) {
 	mux.cache[path] = h
 	return h, nil
 }
+
+func (mux *NBMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	url := r.URL.Path
+	method := r.Method
+	handler, err := mux.Search(url, method)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+	handler.ServeHTTP(w, r)
+}
