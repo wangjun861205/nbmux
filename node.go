@@ -9,14 +9,14 @@ import (
 type Method uint8
 
 const (
-	GET     Method = 0
-	HEAD    Method = 1
-	POST    Method = 1 << 1
-	PUT     Method = 1 << 2
-	DELETE  Method = 1 << 3
-	CONNECT Method = 1 << 4
-	OPTIONS Method = 1 << 5
-	TRACE   Method = 1 << 6
+	GET     Method = 1
+	HEAD    Method = 1 << 1
+	POST    Method = 1 << 2
+	PUT     Method = 1 << 3
+	DELETE  Method = 1 << 4
+	CONNECT Method = 1 << 5
+	OPTIONS Method = 1 << 6
+	TRACE   Method = 1 << 7
 	ALL     Method = (1 << 8) - 1
 )
 
