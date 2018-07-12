@@ -37,7 +37,7 @@ func (mux *NBMux) AddHandler(exp string, method Method, handler http.Handler) er
 	return mux.root.addChildren(expList, method, handler)
 }
 
-func (mux *NBMux) Search(path string, method string) (http.Handler, error) {
+func (mux *NBMux) search(path string, method string) (http.Handler, error) {
 	if strings.Index(path, "/") != 0 {
 		return nil, fmt.Errorf("request path must begin with '/' (%s)", path)
 	}
@@ -56,7 +56,7 @@ func (mux *NBMux) Search(path string, method string) (http.Handler, error) {
 func (mux *NBMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Path
 	method := r.Method
-	handler, err := mux.Search(url, method)
+	handler, err := mux.search(url, method)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
